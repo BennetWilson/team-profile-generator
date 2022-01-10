@@ -8,7 +8,7 @@ const Manager = require(`./lib/Manager`);
 const { data } = require('browserslist');
 const createHttpProxyAgent = require('http-proxy-agent');
 
-const team = []
+const team = [] 
 function init () {
     inquirer.prompt([
         {
@@ -38,54 +38,46 @@ function init () {
             name: `role`
         }
     ])
-    // .then ((data) => {
-    //     const manager = new Manager(data.name, data.ID, data.email, data.number)
-    //     team.push(manager);
-    //     htmlThing();
-    //     managerFunction();
-    //     // teamMember();
-    // })
     .then ((data) => {
     const manager = new Manager(data.name, data.ID, data.email, data.number)
     team.push(manager);
-    htmlThing();
+    htmlTop();
     managerFunction();
     if(data.role === 'Add an Engineer?'){
         newEngineer();
     } else if (data.role === 'Add an intern?') {
         newIntern();
     } else {
-        htmlThing();
-        managerFunction();
-        endingHtml()
+        lastQuestion()
     }
 })
+
 }
 
 
-// function teamMember () {
-//     inquirer.prompt ([
-//         {
-//             type: `list`,
-//             message: `What would you like to do?`,
-//             choices:[`Add an Engineer?`, `Add an intern?`, `Create the team page?`],
-//             name: `teamMember`
-//         }
+function teamMember () {
+    inquirer.prompt ([
+        {
+            type: `list`,
+            message: `What would you like to do?`,
+            choices:[`Add an Engineer?`, `Add an intern?`, `Create the team page?`],
+            name: `teamMember`
+        }
        
-//     ])
-//     .then(function(answer) {
-//         switch (answer.teamMember){
-//             case `Add an Engineer?`:
-//                 newEngineer();
-//                 break;
-//             case `Add an intern?`:
-//                 newIntern();
-//                 break;
-//             default:(endingHtml())
-//     }
-//     })
+    ])
+    .then(function(answer) {
+        switch (answer.teamMember){
+            case `Add an Engineer?`:
+                newEngineer();
+                break;
+            case `Add an intern?`:
+                newIntern();
+                break;
+            default:(lastQuestion())
+    }
+    })
+}
 
-// }
 function newEngineer () {
     inquirer.prompt([
         {
@@ -118,24 +110,15 @@ function newEngineer () {
     .then ((data) => {
         const engineer = new Engineer(data.name, data.ID, data.email, data.number)
         team.push(engineer);
+        engineerFunction();
         if(data.role === 'Add an Engineer?'){
             newEngineer();
         } else if (data.role === 'Add an intern?') {
             newIntern();
         } else {
-           engineerFunction();
-            endingHtml();
+            lastQuestion();
         }
     })}
-
-    // .then ((data) => {
-    //     const engineer = new Engineer(data.name, data.ID, data.email, data.github)
-    //     team.push(engineer);
-    //     // htmlThing(engineer);
-    //     engineerFunction();
-    //     teamMember();
-    // })
-
 
     function newIntern () {
         inquirer.prompt([
@@ -165,29 +148,35 @@ function newEngineer () {
     .then ((data) => {
         const intern = new Intern(data.name, data.ID, data.email, data.school)
         team.push(intern);
+        internFunction();
         if(data.role === 'Add an Engineer?'){
             newEngineer();
         } else if (data.role === 'Add an intern?') {
             newIntern();
         } else {
-           internFunction();
-        endingHtml();
+        lastQuestion();
         }
     })}
+function lastQuestion () {
+    inquirer.prompt([
+    {
+        type: 'list',
+        message: 'Are you sure?',
+        choices: ['Yes', 'No'],
+        name: 'role'
+    }
+    ])
+    .then ((data) => {
+        if(data.role === 'Yes'){
+            endingHtml();
+        } else {
+            teamMember();
+        }
+    })
+}
         
-    // .then ((data) => {
-    //     const intern = new Intern(data.name, data.ID, data.school)
-    //     team.push(intern);
-    //     // htmlThing(intern);
-    //     internFunction();
-    //     teamMember();
-    // })
-    
-
-
-
-
-function htmlThing(){
+  
+function htmlTop(){
     const html =
     `
        <!doctype html>
@@ -274,7 +263,6 @@ function internFunction () {
                <ul class ='card-text'>
                    <li>${i.getName()}</li>
                    <li>${i.getId()}</li>
-                   <li>${i.getEmail()}</li>
                    <li>${findInfo(i)}</li>
                </ul>
               
