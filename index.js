@@ -8,7 +8,9 @@ const Manager = require(`./lib/Manager`);
 const { data } = require('browserslist');
 const createHttpProxyAgent = require('http-proxy-agent');
 
-const team = [] 
+let team = [] 
+let team1 =[]
+let team2=[]
 function init () {
     inquirer.prompt([
         {
@@ -109,7 +111,9 @@ function newEngineer () {
     ])
     .then ((data) => {
         const engineer = new Engineer(data.name, data.ID, data.email, data.number)
-        team.push(engineer);
+        team1 = []
+        team1.push(engineer);
+        
         engineerFunction();
         if(data.role === 'Add an Engineer?'){
             newEngineer();
@@ -147,7 +151,9 @@ function newEngineer () {
     ])
     .then ((data) => {
         const intern = new Intern(data.name, data.ID, data.email, data.school)
-        team.push(intern);
+        team2 = []
+        team2.push(intern);
+        
         internFunction();
         if(data.role === 'Add an Engineer?'){
             newEngineer();
@@ -225,7 +231,7 @@ function managerFunction () {
 
 function engineerFunction () {
 let engineer1 = ''
-for (const i of team) {
+for (const i of team1) {
       engineer1 =
 ` <div class="container">
      <div class="row">
@@ -252,7 +258,7 @@ for (const i of team) {
 }
 function internFunction () {
     let intern1 = ''
-    for (const i of team) {
+    for (const i of team2) {
           intern1 =
 ` <div class="container">
      <div class="row">
