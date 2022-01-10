@@ -9,8 +9,7 @@ const { data } = require('browserslist');
 const createHttpProxyAgent = require('http-proxy-agent');
 
 let team = [] 
-let team1 =[]
-let team2=[]
+
 function init () {
     inquirer.prompt([
         {
@@ -111,8 +110,8 @@ function newEngineer () {
     ])
     .then ((data) => {
         const engineer = new Engineer(data.name, data.ID, data.email, data.number)
-        team1 = []
-        team1.push(engineer);
+        team = []
+        team.push(engineer);
         
         engineerFunction();
         if(data.role === 'Add an Engineer?'){
@@ -151,8 +150,8 @@ function newEngineer () {
     ])
     .then ((data) => {
         const intern = new Intern(data.name, data.ID, data.email, data.school)
-        team2 = []
-        team2.push(intern);
+        team = []
+        team.push(intern);
         
         internFunction();
         if(data.role === 'Add an Engineer?'){
@@ -207,10 +206,10 @@ function managerFunction () {
     for (const i of team) {
       data1 =
          ` <div class="container">
-              <div class="row">
-                  <div class="card col-sm" style="width: 18rem;">
-                      <img class="card-img-top" src="..." alt="Card image cap">
-                      <div class="card-body">
+              <div class="row justify-content-md-center">
+              <div class="card col-sm-6 p-3 mb-2 bg-dark text-white" style="width: 10rem;">
+              <img class="top"  src="mananger.png"  alt="Card image cap" width="50" height="60"/>
+              <div class="card-body">
                         <h5 class="card-title">${i.getRole()}</h5>
                         <ul class ='card-text'>
                         <li>${i.getName()}</li>
@@ -231,13 +230,13 @@ function managerFunction () {
 
 function engineerFunction () {
 let engineer1 = ''
-for (const i of team1) {
+for (const i of team) {
       engineer1 =
 ` <div class="container">
-     <div class="row">
-         <div class="card col-sm" style="width: 18rem;">
-             <img class="card-img-top" src="..." alt="Card image cap">
-             <div class="card-body">
+     <div class="row justify-content-md-center">
+     <div class="card col-sm-6 p-3 mb-2 bg-dark text-white" style="width: 10rem;">
+     <img class="top"  src="engineer.png"  alt="Card image cap" width="50" height="60"/>
+     <div class="card-body">
                <h5 class="card-title">${i.getRole()}</h5>
                <ul class ='card-text'>
                    <li>${i.getName()}</li>
@@ -258,13 +257,13 @@ for (const i of team1) {
 }
 function internFunction () {
     let intern1 = ''
-    for (const i of team2) {
+    for (const i of team) {
           intern1 =
 ` <div class="container">
-     <div class="row">
-         <div class="card col-sm" style="width: 18rem;">
-             <img class="card-img-top" src="..." alt="Card image cap">
-             <div class="card-body">
+     <div class="row justify-content-md-center">
+     <div class="card col-sm-6 p-3 mb-2 bg-dark text-white" style="width: 10rem;">
+     <img class="top"  src="intern2.png"  alt="Card image cap" width="50" height="60"/>
+     <div class="card-body">
                <h5 class="card-title">${i.getRole()}</h5>
                <ul class ='card-text'>
                    <li>${i.getName()}</li>
