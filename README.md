@@ -6,7 +6,7 @@
   
   ## Description 
   
-  My task was to create a team profile generator in JS and Node that took in responses from questions I designed in Inquirer, and output an HTMl file with your team on it.
+I created  a team profile generator in JS and Node that took in responses from questions I designed in Inquirer, and output an HTMl file with your team on it.
 
   All of my main functions ended up being in index.js, although I had initially started with two separate files so that it would not become unwieldy. It all ended up in one file.
 
